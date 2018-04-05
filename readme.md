@@ -1,5 +1,7 @@
 # flat text sequencer
 
+[![Build Status](https://travis-ci.org/bearror/flat-text-sequencer.svg?branch=master)](https://travis-ci.org/bearror/flat-text-sequencer)
+
 Looking to parse a custom text model, render markdown, or highlight code? Here's a module that chunks text into a sequence of typed ranges by pattern.
 
 ```js
