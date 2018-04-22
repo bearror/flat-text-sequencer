@@ -1,18 +1,16 @@
-import test from 'ava'
-import sequenceText from './main'
+import test from 'oletus'
+import sequenceText from '../main'
 
-test.beforeEach(t => {
-  t.context = [
-    { type: 'comment', pattern: /\/\/.+/g },
-    { type: 'string', pattern: /'.+?'/g },
-    { type: 'keyword', pattern: /function|return|var/g },
-    { type: 'operator', pattern: /[()[\]{};:.,\-+=<>*/^&\\]/g },
-    { type: 'number', pattern: /\d+\.?\d*/g }
-  ]
-})
+const patterns = [
+  { type: 'comment', pattern: /\/\/.+/g },
+  { type: 'string', pattern: /'.+?'/g },
+  { type: 'keyword', pattern: /function|return|var/g },
+  { type: 'operator', pattern: /[()[\]{};:.,\-+=<>*/^&\\]/g },
+  { type: 'number', pattern: /\d+\.?\d*/g }
+]
 
 test('function', t => {
-  const sequence = sequenceText('function parentFunc() {', t.context)
+  const sequence = sequenceText('function parentFunc() {', patterns)
 
   t.deepEqual(sequence, [
     { type: 'keyword', data: 'function' },
@@ -26,7 +24,7 @@ test('function', t => {
 test('comment', t => {
   const sequence = sequenceText(
     `    var b = 4; // parentFunc can't use this`,
-    t.context)
+    patterns)
 
   t.deepEqual(sequence, [
     { data: '    ' },

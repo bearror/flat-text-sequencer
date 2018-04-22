@@ -1,23 +1,21 @@
-import test from 'ava'
-import sequenceText from './main'
+import test from 'oletus'
+import sequenceText from '../main'
 
-test.beforeEach(t => {
-  t.context = [
-    { type: 'h1', pattern: /#.*/g },
-    { type: 'strong', pattern: /\*\*.+?\*\*/g },
-    { type: 'em', pattern: /\*.+?\*/g },
-    { type: 'code', pattern: /`.+?`/g }
-  ]
-})
+const patterns = [
+  { type: 'h1', pattern: /#.*/g },
+  { type: 'strong', pattern: /\*\*.+?\*\*/g },
+  { type: 'em', pattern: /\*.+?\*/g },
+  { type: 'code', pattern: /`.+?`/g }
+]
 
 test('single token', t => {
-  const sequence = sequenceText('#Hello, World!', t.context)
+  const sequence = sequenceText('#Hello, World!', patterns)
 
   t.deepEqual(sequence, [{ type: 'h1', data: '#Hello, World!' }])
 })
 
 test('multiple tokens', t => {
-  const sequence = sequenceText('**strong** and **very strong**', t.context)
+  const sequence = sequenceText('**strong** and **very strong**', patterns)
 
   t.deepEqual(sequence, [
     { type: 'strong', data: '**strong**' },
@@ -28,7 +26,7 @@ test('multiple tokens', t => {
 test('confilcting patterns', t => {
   const sequence = sequenceText(
     '*fancy* and **strong** *stuff* *yep...***hello** there',
-    t.context)
+    patterns)
 
   t.deepEqual(sequence, [
     { type: 'em', data: '*fancy*' },
@@ -42,7 +40,7 @@ test('confilcting patterns', t => {
 })
 
 test('nested patterns', t => {
-  const sequence = sequenceText('**this stuff is *nested*!**', t.context)
+  const sequence = sequenceText('**this stuff is *nested*!**', patterns)
 
   t.deepEqual(sequence, [
     { type: 'strong', data: '**this stuff is *nested*!**' }
@@ -50,7 +48,7 @@ test('nested patterns', t => {
 })
 
 test('custom delimiter', t => {
-  const sequence = sequenceText('**custom****delimiter**', t.context, '|')
+  const sequence = sequenceText('**custom****delimiter**', patterns, '|')
 
   t.deepEqual(sequence, [
     { type: 'strong', data: '**custom**' },
@@ -60,7 +58,7 @@ test('custom delimiter', t => {
 test('making sure the readme is correct', t => {
   const sequence = sequenceText(
     '*if only* there was a way to make `this` a **sequence**',
-    t.context)
+    patterns)
 
   t.deepEqual(sequence, [
     { type: 'em', data: '*if only*' },
