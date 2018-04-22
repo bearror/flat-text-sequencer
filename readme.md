@@ -1,4 +1,4 @@
-# flat text sequencer
+# ▶ flat text sequencer
 
 [![Build Status](https://travis-ci.org/bearror/flat-text-sequencer.svg?branch=master)](https://travis-ci.org/bearror/flat-text-sequencer)
 
