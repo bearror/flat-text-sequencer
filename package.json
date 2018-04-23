@@ -1,6 +1,6 @@
 {
   "name": "flat-text-sequencer",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Turns text to a sequence of typed ranges",
   "scripts": {
     "test": "npx -n='-r esm' oletus"
@@ -16,7 +16,7 @@
   "author": "bearror",
   "license": "MIT",
   "devDependencies": {
-    "esm": "^3.0.22",
-    "oletus": "^1.1.3"
+    "esm": "^3.0.24",
+    "oletus": "^1.1.4"
   }
 }
