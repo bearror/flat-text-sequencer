@@ -1,22 +1,22 @@
 {
   "name": "flat-text-sequencer",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "Turns text to a sequence of typed ranges",
   "scripts": {
     "test": "npx -n='-r esm' oletus"
   },
   "files": [
-    "main.js"
+    "index.js"
   ],
   "repository": "bearror/flat-text-sequencer",
-  "main": "./main.js",
+  "main": "./index.js",
   "engines": {
     "node": ">=6.3.0"
   },
   "author": "bearror",
   "license": "MIT",
   "devDependencies": {
-    "esm": "^3.0.24",
-    "oletus": "^1.1.4"
+    "esm": "^3.0.28",
+    "oletus": "^1.1.5"
   }
 }

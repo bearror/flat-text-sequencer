@@ -5,8 +5,8 @@
 Looking to parse a custom text model, render markdown, or highlight code? Here's a module that chunks text into a sequence of typed ranges by pattern.
 
 ```js
-sequence('*if only* there was a way to make `this` a **sequence**', [
-  { type: 'strong', pattern: /\*\*.+?\*\*/g },
+sequence('*if only* there was a way to make `this` a __sequence__', [
+  { type: 'strong', pattern: /__.+?__/g },
   { type: 'em', pattern: /\*.+?\*/g },
   { type: 'code', pattern: /`.+?`/g }
 ])
@@ -14,11 +14,11 @@ sequence('*if only* there was a way to make `this` a **sequence**', [
 *From text to a sequence.*
 ```js
 [
-  { type: 'em', data: '*if only*' },
-  { data: ' there was a way to make ' },
-  { type: 'code', data: '`this`' },
-  { data: ' a ' },
-  { type: 'strong', data: '**sequence**' }
+  { type: ['em'], data: '*if only*' },
+  { type: [], data: ' there was a way to make ' },
+  { type: ['code'], data: '`this`' },
+  { type: [], data: ' a ' },
+  { type: ['strong'], data: '__sequence__' }
 ]
 ```
 
@@ -34,15 +34,15 @@ const sequenceText = require('flat-text-sequecner')
 ```
 And call it with your data:
 ```js
-const sequence = sequenceText(text, patterns, delimiter)
+const sequence = sequenceText(text, patterns)
 ```
 
 ### API
 
 Flat text sequencer exports a single function with the following signature:
 ```
-(text: string, patterns: [{ type: string, pattern: RegExp }], delimiter = ' ')
--> [{ data: string, type?: string }]
+(text: string, patterns: [{ type: string, pattern: RegExp }])
+-> [{ type: [string], data: string }]
 ```
 
 ## Author

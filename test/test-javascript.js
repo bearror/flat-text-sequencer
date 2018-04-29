@@ -1,5 +1,5 @@
 import test from 'oletus'
-import sequenceText from '../main'
+import sequenceText from '../index'
 
 const patterns = [
   { type: 'comment', pattern: /\/\/.+/g },
@@ -13,12 +13,12 @@ test('function', t => {
   const sequence = sequenceText('function parentFunc() {', patterns)
 
   t.deepEqual(sequence, [
-    { type: 'keyword', data: 'function' },
-    { data: ' parentFunc' },
-    { type: 'operator', data: '(' },
-    { type: 'operator', data: ')' },
-    { data: ' ' },
-    { type: 'operator', data: '{' }])
+    { type: ['keyword'], data: 'function' },
+    { type: [], data: ' parentFunc' },
+    { type: ['operator'], data: '(' },
+    { type: ['operator'], data: ')' },
+    { type: [], data: ' ' },
+    { type: ['operator'], data: '{' }])
 })
 
 test('comment', t => {
@@ -27,13 +27,15 @@ test('comment', t => {
     patterns)
 
   t.deepEqual(sequence, [
-    { data: '    ' },
-    { type: 'keyword', data: 'var' },
-    { data: ' b ' },
-    { type: 'operator', data: '=' },
-    { data: ' ' },
-    { type: 'number', data: '4' },
-    { type: 'operator', data: ';' },
-    { data: ' ' },
-    { type: 'comment', data: `// parentFunc can't use this` }])
+    { type: [], data: '    ' },
+    { type: ['keyword'], data: 'var' },
+    { type: [], data: ' b ' },
+    { type: ['operator'], data: '=' },
+    { type: [], data: ' ' },
+    { type: ['number'], data: '4' },
+    { type: ['operator'], data: ';' },
+    { type: [], data: ' ' },
+    { type: ['operator', 'comment'], data: '/' },
+    { type: ['comment', 'operator'], data: '/' },
+    { type: ['comment'], data: ` parentFunc can't use this` }])
 })
